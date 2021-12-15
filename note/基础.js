@@ -1,19 +1,50 @@
 /*
+https://cn.vuejs.org/v2/guide/index.html
 Vue.js:一套用于构建用户界面的渐进式框架
 特点：
-声明式渲染:采用简洁的模板语法来声明式地将数据渲染进 DOM 的系统，在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数；
-数据双向绑定:
-组件化：
+1、声明式渲染:采用简洁的模板语法来声明式地将数据渲染进 DOM 的系统，在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数；
+2、数据双向绑定:v-model实现表单的数据双向绑定,v-model 本质上是语法糖.它负责监听用户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。
+<input v-model="searchText"></input>
+等价于
+<input
+  v-bind:value="searchText"
+  v-on:input="searchText = $event.target.value"
+>
+
+3、组件化：
 */
 
 
+
 /*
-Vue 实例：每个 Vue 应用都是用 Vue 函数创建一个Vue 实例；虽然没有完全遵循 MVVM 模型，但是 Vue 的设计也受到了它的启发，因此在文档中经常会使用 vm表示 Vue 实例
+Vue 实例：
+每个 Vue 应用都是用 Vue 函数创建一个Vue 实例；虽然没有完全遵循 MVVM 模型，但是 Vue 的设计也受到了它的启发，因此在文档中经常会使用 vm表示 Vue 实例
 data 对象中的所有的 property 加入到 Vue 的响应式系统中(只有当实例被创建时就已经存在于 data 中的 property 才是响应式的，新property不具备响应式)
 */
 var vm = new Vue({
   // 选项对象
 })
+
+
+/*
+Vue 组件:
+组件是可复用的 Vue 实例，且带有一个名字，可以在Vue 根实例中把组件作为自定义元素来使用。由于组件是Vue 实例，所以它们与 new Vue 接收相同的选项，例如 data、computed、watch、methods 以及生命周期钩子等。
+一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝，否则不同组件的数据将会互相影响。
+分为全局注册和局部注册；
+父组件通过prop向组件传值，组件调用内建的 $emit 方法并传入事件名称使父组件触发一个事件；
+通过插槽slot分发内容;
+动态组件:通过 Vue 的 <component> 元素加一个特殊的 is attribute 来实现
+*/
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+})
+
+<component v-bind:is="currentTabComponent"></component> // 组件会在 `currentTabComponent` 改变时改变,currentTabComponent为组件名
 
 
 /*
@@ -30,12 +61,51 @@ created
 示例：v-bind（接收一个参数，响应式更新，缩写为：）、v-model（双向绑定）、v-for、v-if、v-on（监听事件，缩写为@）
 <a v-bind:href="url">...</a>  <a :href="url">...</a>
 <a v-on:click="doSomething">...</a>   <a @click="doSomething">...</a>
+*/
 
-修饰符：
-以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定
-示例：.prevent（告诉 v-on 指令对于触发的事件调用 event.preventDefault()）
+/*
+事件修饰符：以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定,修饰符可以串联
 <form v-on:submit.prevent="onSubmit">...</form>
+<a v-on:click.stop.prevent="doThat"></a>
+*/
+.prevent //告诉 v-on 指令对于触发的事件调用 event.preventDefault(),提交事件不再重载页面 
+.stop //event.stopPropagation(),阻止单击事件继续向上传播
+.capture // 使用事件捕获模式,从上到下
+.self // 只当在 event.target 是当前元素自身时触发处理函数
+.once // 只执行一次
+.passive // 滚动事件的默认行为 (即滚动行为) 将会立即触发,而不会等待 `onScroll` 完成,不会阻止事件的默认行为
 
+/*
+按键修饰符:监听键盘事件,keyup后面接按键key或按键码
+可以通过全局 config.keyCodes 对象自定义按键修饰符别名： Vue.config.keyCodes.f1 = 112  // 可以使用 `v-on:keyup.f1`
+<input v-on:keyup.enter="submit"> 只有在 `key` 是 `Enter` 时调用 `vm.submit()`
+<input v-on:keyup.13="submit">
+
+系统修饰键：仅在按下相应按键时才触发鼠标或键盘事件的监听器
+<input v-on:keyup.alt.67="clear"> // Alt + C 
+<div v-on:click.ctrl="doSomething">Do something</div> // Ctrl + Click
+*/
+.ctrl
+.alt
+.shift
+.meta
+
+/*
+鼠标按钮修饰符:.left、.right、.middle
+*/
+
+/*
+表单修饰符：
+<input v-model.lazy="msg">  // 在“change”时而非“input”时更新 
+<input v-model.number="age" type="number"> // 自动将用户的输入值转为数值类型
+<input v-model.trim="msg"> // 自动过滤用户输入的首尾空白字符
+*/
+
+
+
+
+
+/*
 计算属性computed：
 计算复杂逻辑，以声明式创建依赖关系，基于它们的响应式依赖进行缓存的,当依赖改变时，则重新计算；否则使用缓存的值
 计算属性默认只有 getter，不过在需要时你也可以提供一个 setter
@@ -141,3 +211,5 @@ push()、pop()、shift()、unshift()、splice()、sort()、reverse()
 filter()、concat() 和 slice()
 Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能的启发式方法，使用新数组并不会丢弃现有 DOM 并重新渲染整个列表
 */
+
+
