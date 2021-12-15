@@ -1,0 +1,67 @@
+// 全局样式、Vant组件库样式覆盖
+.van-toast {
+    .van-icon-clear,
+    .van-icon-cross {
+        color: #ff5000 !important;
+    }
+}
+
+.van-search__action {
+    background-color: #ff5000;
+    color: #fff;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 2px;
+    text-align: center;
+    flex: 0.15;
+    margin: 0 2px;
+}
+
+.van-button--small{
+    height: 24px;
+}
+
+.detail-header {
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+.detail-header-title {
+    text-align: center;
+    height: 30px;
+    font-size: 16px;
+    color: #1989fa;
+    margin: 0 5px;
+}
+
+.detail-header-line {
+    display: inline-block;
+    width: 10px;
+    border-top: 1px solid #cccccc;
+    vertical-align: 5px;
+}
+
+.van-popup--center{
+    top:20%;
+    left: 3%;
+    width: 92%;
+    transform:translate3d(0,0,0);
+    padding: 3% 1%;
+}
+
+.van-checkbox__label{
+    color:rgba(100,101,102,.8);
+}
+
+.van-form .van-field__label{
+    font-size: 15px;
+}
+
+/* 竖屏 */
+@media screen and (orientation: portrait) {}
+
+/*横屏 css*/
+@media screen and (orientation: landscape) {}
