@@ -29,4 +29,13 @@ animation和@keyframes
 */
 
 
+/*
+自定义过渡的类名:优先级高于普通的类名，可结合第三方 CSS 动画库，如 Animate.css
+enter-class
+enter-active-class
+enter-to-class (2.1.8+)
+leave-class
+leave-active-class
+leave-to-class (2.1.8+)
+*/
 
