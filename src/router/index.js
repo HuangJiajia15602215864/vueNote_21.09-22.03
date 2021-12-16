@@ -4,11 +4,11 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export const constantRoutes = [{
-    path: '/select',
-    name: 'select',
-    component: () => import('@/views/select/index'),
+    path: '/transitions',
+    name: 'transitions',
+    component: () => import('@/views/transitions/index'),
     meta: {
-        title: 'select',
+        title: 'transitions',
         allowBack: false
     }
 }]
