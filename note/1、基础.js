@@ -12,8 +12,28 @@ Vue.js:一套用于构建用户界面的渐进式框架
 >
 
 3、组件化：
+4、SPA(单页应用程序)
 */
 
+
+/*
+SPA：Single Page Application
+单页Web应用只有一个Web页面的应用，是加载单个HTML页面，并在用户与应用程序交互时动态更新该页面的Web应用程序。
+  
+单页面应用程序：只有第一次会加载页面, 以后的每次请求, 仅仅是获取必要的数据.然后, 由页面中js解析获取的数据, 展示在页面中
+传统多页面应用程序：每次请求服务器返回的都是一个完整的页面
+
+优势:
+ 1 减少了请求体积，加快页面响应速度，降低了对服务器的压力
+  2 更好的用户体验，让用户在web app感受native app的流畅
+
+实现思路和技术点:
+    1 ajax
+    2 锚点的使用（window.location.hash #）
+    3 hashchange 事件 window.addEventListener("hashchange",function () {})
+    4 监听锚点值变化的事件，根据不同的锚点值，请求相应的数据
+    5 原本用作页面内部进行跳转，定位并展示相应的内容
+*/
 
 
 /*
@@ -31,9 +51,9 @@ Vue 组件:
 组件是可复用的 Vue 实例，且带有一个名字，可以在Vue 根实例中把组件作为自定义元素来使用。由于组件是Vue 实例，所以它们与 new Vue 接收相同的选项，例如 data、computed、watch、methods 以及生命周期钩子等。
 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝，否则不同组件的数据将会互相影响。
 分为全局注册和局部注册；
-父组件通过prop向组件传值，组件调用内建的 $emit 方法并传入事件名称使父组件触发一个事件；
-通过插槽slot分发内容;
+父组件通过prop向组件传值，子组件调用内建的 $emit 方法并传入事件名称使父组件触发一个事件；通过插槽slot分发内容;
 动态组件:通过 Vue 的 <component> 元素加一个特殊的 is attribute 来实现
+在某些特定的标签中只能存在指定表恰 如ul > li 如果要浏览器正常解析则需要使用is
 */
 Vue.component('button-counter', {
   data: function () {
@@ -46,22 +66,20 @@ Vue.component('button-counter', {
 
 <component v-bind:is="currentTabComponent"></component> // 组件会在 `currentTabComponent` 改变时改变,currentTabComponent为组件名
 
-
-/*
-生命周期：
-new Vue() 创建Vue实例、初始化事件和生命周期
-beforeCreate 
-created 
-*/
-
-
-/*
-指令：
-带有 v- 前缀的特殊 attribute，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM。
-示例：v-bind（接收一个参数，响应式更新，缩写为：）、v-model（双向绑定）、v-for、v-if、v-on（监听事件，缩写为@）
-<a v-bind:href="url">...</a>  <a :href="url">...</a>
-<a v-on:click="doSomething">...</a>   <a @click="doSomething">...</a>
-*/
+<ul id="app">
+  <my-li></my-li> // 不能识别
+  <li is="my-li"></li> // 正常识别
+</ul>
+<script>
+  var vm = new Vue({
+    el: "#app",
+    components : {
+      myLi : {
+        template : `<li>内容</li>`
+      }
+    }
+  })
+</script>
 
 /*
 事件修饰符：以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定,修饰符可以串联
@@ -100,52 +118,6 @@ created
 <input v-model.number="age" type="number"> // 自动将用户的输入值转为数值类型
 <input v-model.trim="msg"> // 自动过滤用户输入的首尾空白字符
 */
-
-
-
-
-
-/*
-计算属性computed：
-计算复杂逻辑，以声明式创建依赖关系，基于它们的响应式依赖进行缓存的,当依赖改变时，则重新计算；否则使用缓存的值
-计算属性默认只有 getter，不过在需要时你也可以提供一个 setter
-
-侦听器：
-观察和响应 Vue 实例上的数据变动
-*/
-// 当this.message变化才会重新计算
-computed: {
-  reversedMessage: function () {
-    return this.message.split('').reverse().join('') // `this` 指向 vm 实例
-  }
-}
-// 只计算一次，不再更新
-computed: {
-  now: function () {
-    return Date.now()
-  }
-}
-// 重新渲染则会重新计算
-methods: {
-  reversedMessage: function () {
-    return this.message.split('').reverse().join('')
-  }
-}
-
-computed: {
-  fullName: {
-    // getter
-    get: function () {
-      return this.firstName + ' ' + this.lastName
-    },
-    // setter
-    set: function (newValue) {// 运行 vm.fullName = 'John Doe' 时，setter 会被调用，vm.firstName 和 vm.lastName 也会相应地被更新
-      var names = newValue.split(' ')
-      this.firstName = names[0]
-      this.lastName = names[names.length - 1]
-    }
-  }
-}
 
 
 /*

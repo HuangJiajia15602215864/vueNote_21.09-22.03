@@ -1,4 +1,24 @@
 /*
+指令：
+带有 v- 前缀的特殊 attribute，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM。
+示例：
+v-bind（接收一个参数，响应式更新，缩写为：）
+v-model（在表单元素上创建双向数据绑定，监听用户的输入事件以更新数据）
+v-text（更新DOM对象的 textContent）
+v-html（更新DOM对象的 innerHTML）
+v-for（基于源数据多次渲染元素或模板块，使用 key，VUE会基于 key 的变化重新排列元素顺序，并且会移除 key 不存在的元素）
+v-if（根据表达式的值的真假条件，销毁或重建元素）
+v-show（根据表达式之真假值，切换元素的 display CSS 属性）
+v-pre（vue会跳过这个元素和它的子元素的编译过程。可以用来显示原始 Mustache 标签。跳过大量没有指令的节点会加快编译。）
+v-once（vue只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。）
+
+v-on（监听事件，缩写为@）
+<a v-bind:href="url">...</a>  <a :href="url">...</a>
+<a v-on:click="doSomething">...</a>   <a @click="doSomething">...</a>
+*/
+
+
+/*
 自定义指令:
 对普通 DOM 元素进行底层操作,分为全局指令和局部指令
 */
@@ -43,3 +63,10 @@ oldVnode：上一个虚拟节点，仅在 update 和 componentUpdated 钩子中�
 Vue.directive('color-swatch', function (el, binding) {// 函数简写,在 bind 和 update 时触发相同行为
   el.style.backgroundColor = binding.value
 })
+
+
+/*
+自定义指令 例子：
+谷歌图片的加载、highlight高亮
+https://juejin.cn/post/6844903465643147278
+*/
