@@ -8,13 +8,13 @@ beforeCreate()
 说明：在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用
 注意：此时，无法获取 data中的数据、methods中的方法
 
--- 数据观测 (data observer) 和 event/watcher 事件配置
+-- 数据观测 (data observer) 和 event/watcher 事件配置,数据初始化和响应式处理
 
 created()
 注意：可以调用methods中的方法、改变data中的数据
 
 beforeMounted()
-说明：在挂载开始之前被调用
+说明：在挂载开始之前被调用（此处render函数生成虚拟DOM，但未转换成真实DOM并替换el)
 
 -- 挂载 (el优先级比template高)
 
@@ -29,6 +29,12 @@ beforeUpdated()
 
 updated()
 说明：组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作
+
+activated()
+说明：被keep-alive缓存的组件激活时调用
+
+deactivated()
+说明：被keep-alive缓存的组件停用时调用
 
 beforeDestroy()
 说明：实例销毁之前调用。在这一步，实例仍然完全可用。

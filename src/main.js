@@ -29,6 +29,9 @@ const i18n = new VueI18n({
   messages
 })
 
+import Directives from '@/directives/index.js'// 全局指令
+Vue.use(Directives)
+
 Vue.use(Button).use(Loading).use(Icon).use(Radio).use(RadioGroup).use(Cell).use(CellGroup).use(Form).use(Field).use(Popup).use(Picker).use(Checkbox);
 Vue.config.productionTip = false
 new Vue({

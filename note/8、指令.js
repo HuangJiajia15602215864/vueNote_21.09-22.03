@@ -67,6 +67,8 @@ Vue.directive('color-swatch', function (el, binding) {// 函数简写,在 bind �
 
 /*
 自定义指令 例子：
+directives示例
 谷歌图片的加载、highlight高亮
 https://juejin.cn/post/6844903465643147278
 */
+

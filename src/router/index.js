@@ -11,6 +11,14 @@ export const constantRoutes = [{
         title: 'transitions',
         allowBack: false
     }
+},{
+    path: '/directives',
+    name: 'directives',
+    component: () => import('@/views/directives/index'),
+    meta: {
+        title: 'directives',
+        allowBack: false
+    }
 }]
 
 const createRouter = () =>

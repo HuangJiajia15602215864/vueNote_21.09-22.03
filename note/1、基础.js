@@ -13,6 +13,7 @@ Vue.js:一套用于构建用户界面的渐进式框架
 
 3、组件化：
 4、SPA(单页应用程序)
+5、渐进式
 */
 
 
@@ -25,7 +26,10 @@ SPA：Single Page Application
 
 优势:
  1 减少了请求体积，加快页面响应速度，降低了对服务器的压力
-  2 更好的用户体验，让用户在web app感受native app的流畅
+ 2 更好的用户体验，让用户在web app感受native app的流畅
+缺点：
+ 1 单页面不利于seo
+ 2 首屏加载时间长
 
 实现思路和技术点:
     1 ajax
@@ -35,6 +39,21 @@ SPA：Single Page Application
     5 原本用作页面内部进行跳转，定位并展示相应的内容
 */
 
+
+/*
+Vue跟React的异同点？
+相同点：
+1.都使用了虚拟dom
+2.组件化开发
+3.都是单向数据流(父子组件之间，不建议子修改父传下来的数据)
+4.都支持服务端渲染
+
+不同点：
+1.React的JSX，Vue的template
+2.数据变化，React手动(setState)，Vue自动(初始化已响应式处理，Object.defineProperty)
+3.React单向绑定，Vue双向绑定
+4.React的Redux，Vue的Vuex
+*/
 
 /*
 Vue 实例：

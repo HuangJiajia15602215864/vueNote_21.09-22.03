@@ -4,7 +4,7 @@ watch:
 
 handler：处理函数
 deep : 是否监听对象内部属性值的变化 
-immediate: 是否立即以表达式的当前值触发回调
+immediate: 是否立即以表达式的当前值触发回调,初始化是否立即执行一次回调
 */
 watch: {
   a: function(val, oldVal) {
