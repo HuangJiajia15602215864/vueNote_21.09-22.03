@@ -47,6 +47,9 @@ module.exports = {
 加载器(loader)：
 webpack 只能理解 JavaScript 和 JSON 文件，loader 让 webpack 能够去处理其他类型的文件，并将它们转换为有效模块，添加到依赖图中；
 必须属性：test 和 use/loader,告诉webpack 编译器，当碰到「在 require()/import 语句中被解析为 '.txt' 的路径」时，在你对它打包之前，先 use(使用)loader预处理转换一下；
+
+test：匹配规则，针对符合规则的文件进行处理;
+use：字符串、数组（每一项既可以是字符串也可以是一个对象，当我们需要在webpack 的配置文件中对 loader 进行配置，就需要将其编写为一个对象，并且在此对象的 options 字段中进行配置）
 */
 module.exports = {
   module: { // 必须定义在module中
@@ -54,6 +57,9 @@ module.exports = {
       test: /\.txt$/,
       use: 'raw-loader'
     }, {
+      test: /\.css$/, // 指示 webpack 对每个 .css 使用 css-loader
+      use: ['style-loader', 'css-loader']
+    },{
       test: /\.css$/, // 指示 webpack 对每个 .css 使用 css-loader
       loader: 'style-loader!css-loader'
     }, { // loader 从右到左（或从下到上）地取值执行,以下从 sass-loader 开始执行，然后继续执行 css-loader，最后以 style-loader 为结束
@@ -92,6 +98,8 @@ module.exports = {
 /*
 配置（Configuration）:
 模式(mode):启用 webpack 内置在相应环境下的优化，值包括development、production(默认)、none
+ development：将 process.env.NODE_ENV 的值设置为 development
+ production：将 process.env.NODE_ENV 的值设置为 production
 */
 module.exports = {
   mode: 'development'
